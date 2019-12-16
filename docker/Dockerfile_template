@@ -10,12 +10,6 @@ RUN apt-get install -y apt-utils \
 	&& apt-get install -y software-properties-common \
 	&& apt-get install -y gnupg gnupg1 gnupg2
 
-#RUN apt-get install -y net-tools
-
-#RUN apt-get install -y software-properties-common
-
-#RUN apt-get install -y gnupg gnupg1 gnupg2
-
 RUN apt-get install -y wget \
 	&& apt-get install -y apt-transport-https \
 	&& apt-get install -y ca-certificates \
@@ -24,7 +18,4 @@ RUN apt-get install -y wget \
 
 RUN apt-get install -y postgresql-client
 
-#COPY EagleEyeEar /home/EagleEyeEar
-
-#WORKDIR /var/lib/postgresql/11/main/pg_log
 WORKDIR /home/EagleEyeEar
