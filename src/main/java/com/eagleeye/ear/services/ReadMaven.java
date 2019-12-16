@@ -33,8 +33,6 @@ public class ReadMaven {
 
     String body = apiGet(uri);
 
-    System.out.println(body);
-
     MavenPackage mavenPackage = JsonToObject(getContent(body));
 
     System.out.println(mavenPackage.getId());
