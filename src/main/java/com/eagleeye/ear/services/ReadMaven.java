@@ -1,5 +1,8 @@
 package com.eagleeye.ear.services;
 
+import com.eagleeye.ear.models.MavenPackage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -20,8 +23,6 @@ public class ReadMaven {
   public void getPackage(String package_id)
       throws IOException, URISyntaxException {
 
-    CloseableHttpClient client = HttpClients.createDefault();
-
     URI uri = new URIBuilder()
         .setScheme("https")
         .setHost(host)
@@ -29,6 +30,20 @@ public class ReadMaven {
         .setParameter("q", "id:\"" + package_id + "\"")
         .setParameter("wt", "json")
         .build();
+
+    String body = apiGet(uri);
+
+    System.out.println(body);
+
+    MavenPackage mavenPackage = JsonToObject(getContent(body));
+
+    System.out.println(mavenPackage.getId());
+  }
+
+  private String apiGet(URI uri)
+    throws IOException, URISyntaxException {
+
+    CloseableHttpClient client = HttpClients.createDefault();
 
     HttpGet httpGet = new HttpGet(uri);
 
@@ -41,6 +56,23 @@ public class ReadMaven {
 
     client.close();
 
-    System.out.println(body);
+    return body;
+  }
+
+  private String getContent(String response) {
+
+    String content = response.substring(response.indexOf("\"docs\":") + 8, response.indexOf("]},\"spellcheck\""));
+
+    return content;
+  }
+
+  private MavenPackage JsonToObject(String json)
+    throws JsonProcessingException {
+
+    ObjectMapper mapper = new ObjectMapper();
+
+    MavenPackage mavenPackage = mapper.readValue(json, MavenPackage.class);
+
+    return mavenPackage;
   }
 }
