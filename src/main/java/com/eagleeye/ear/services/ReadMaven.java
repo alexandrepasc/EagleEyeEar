@@ -1,4 +1,4 @@
-package com.eagleeye.ear.service;
+package com.eagleeye.ear.services;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.CloseableHttpResponse;

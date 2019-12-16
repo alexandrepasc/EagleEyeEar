@@ -1,6 +1,6 @@
 package com.eagleeye.ear;
 
-import com.eagleeye.ear.service.ReadMaven;
+import com.eagleeye.ear.services.ReadMaven;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
