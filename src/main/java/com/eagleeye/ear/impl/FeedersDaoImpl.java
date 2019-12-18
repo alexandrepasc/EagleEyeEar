@@ -1,6 +1,5 @@
 package com.eagleeye.ear.impl;
 
-import com.eagleeye.ear.common.HibernateUtils;
 import com.eagleeye.ear.dao.FeedersDao;
 import com.eagleeye.ear.models.Feeder;
 
@@ -9,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
+
 import java.util.List;
 import java.util.UUID;
 
