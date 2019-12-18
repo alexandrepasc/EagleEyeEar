@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 18, 2016 1:29:07 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.eagleeye.ear.models.Feeder" table="feeders">
+        <id name="id" type="java.util.UUID">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.util.UUID">
+            <column name="user_id" />
+        </property>
+        <property name="packName" type="java.lang.String">
+            <column name="pack_name" />
+        </property>
+        <property name="packId" type="java.lang.String">
+            <column name="pack_id" />
+        </property>
+        <property name="packGroup" type="java.lang.String">
+            <column name="pack_group" />
+        </property>
+        <property name="packArtifact" type="java.lang.String">
+            <column name="pack_artifact" />
+        </property>
+        <property name="packReleaseDate" type="long">
+            <column name="pack_release_date" />
+        </property>
+        <property name="repository" type="java.lang.String">
+            <column name="repository" />
+        </property>
+    </class>
+</hibernate-mapping>
