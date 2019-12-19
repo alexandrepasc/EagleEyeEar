@@ -28,6 +28,8 @@ public class Feeder {
   private String packGroup;
   @Column(name = "pack_artifact")
   private String packArtifact;
+  @Column(name = "pack_version")
+  private String packVersion;
   @Column(name = "pack_release_date")
   private long packReleaseDate;
   @Column(name = "repository")
@@ -79,6 +81,14 @@ public class Feeder {
 
   public void setPackArtifact(String packArtifact) {
     this.packArtifact = packArtifact;
+  }
+
+  public String getPackVersion() {
+    return packVersion;
+  }
+
+  public void setPackVersion(String packVersion) {
+    this.packVersion = packVersion;
   }
 
   public long getPackReleaseDate() {

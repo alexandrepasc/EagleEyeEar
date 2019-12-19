@@ -23,6 +23,9 @@
         <property name="packArtifact" type="java.lang.String">
             <column name="pack_artifact" />
         </property>
+        <property name="packVersion" type="java.lang.String">
+            <column name="pack_version" />
+        </property>
         <property name="packReleaseDate" type="long">
             <column name="pack_release_date" />
         </property>
