@@ -2,6 +2,7 @@ package com.eagleeye.ear;
 
 import com.eagleeye.ear.impl.FeedersDaoImpl;
 import com.eagleeye.ear.models.Feeder;
+import com.eagleeye.ear.services.PypiService;
 import com.eagleeye.ear.services.ReadMaven;
 
 import java.io.IOException;
@@ -13,6 +14,9 @@ public class EagleEyeEar {
 
   public static void main(String[] args) {
 
+    /*--------
+    MAVEN API
+     --------*/
     ReadMaven readMaven = new ReadMaven();
 
     try {
@@ -23,6 +27,9 @@ public class EagleEyeEar {
       e.printStackTrace();
     }
 
+    /*--------
+    HIBERNATE API
+     --------*/
     FeedersDaoImpl feedersDao = new FeedersDaoImpl();
 
     Feeder feeder = feedersDao.getFeederById(UUID.fromString("d1b60196-b5c7-4be3-ad12-ecd95135802d"));
@@ -33,6 +40,19 @@ public class EagleEyeEar {
     for (Feeder feeder1 : feeders) {
       System.out.println(feeder1.getId());
       System.out.println(feeder1.getPackId());
+    }
+
+    /*--------
+    PYPI API
+     --------*/
+    PypiService pypiService = new PypiService();
+
+    try {
+      pypiService.getPackage("django");
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
     }
   }
 }
