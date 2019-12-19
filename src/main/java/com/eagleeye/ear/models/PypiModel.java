@@ -1,32 +1,27 @@
 package com.eagleeye.ear.models;
 
+import com.eagleeye.ear.models.pypiModels.InfoModel;
+import com.eagleeye.ear.models.pypiModels.UrlsModel;
+
 public class PypiModel {
 
-  private String name;
-  private String version;
-  private String upload_time;
+  private InfoModel info;
+  private UrlsModel urls;
 
-  public String getName() {
-    return name;
+  public InfoModel getInfo() {
+    return info;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setInfo(InfoModel info) {
+    this.info = info;
   }
 
-  public String getVersion() {
-    return version;
+  public UrlsModel getUrls() {
+    return urls;
   }
 
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  public String getUpload_time() {
-    return upload_time;
-  }
-
-  public void setUpload_time(String upload_time) {
-    this.upload_time = upload_time;
+  public void setUrls(UrlsModel urls) {
+    this.urls = urls;
   }
 }
+
