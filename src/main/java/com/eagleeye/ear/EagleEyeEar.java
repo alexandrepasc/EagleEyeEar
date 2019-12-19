@@ -1,7 +1,9 @@
 package com.eagleeye.ear;
 
 import com.eagleeye.ear.impl.FeedersDaoImpl;
+import com.eagleeye.ear.impl.PypiDaoImpl;
 import com.eagleeye.ear.models.Feeder;
+import com.eagleeye.ear.models.PypiModel;
 import com.eagleeye.ear.services.PypiService;
 import com.eagleeye.ear.services.ReadMaven;
 
@@ -45,14 +47,19 @@ public class EagleEyeEar {
     /*--------
     PYPI API
      --------*/
-    PypiService pypiService = new PypiService();
+    PypiDaoImpl pypiDao = new PypiDaoImpl();
+    PypiModel pypiModel = new PypiModel();
 
     try {
-      pypiService.getPackage("django");
-    } catch (IOException e) {
-      e.printStackTrace();
+      pypiModel = pypiDao.getPypiPackByName("django");
     } catch (URISyntaxException e) {
       e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+
+    System.out.println(pypiModel.getInfo().getName());
+    System.out.println(pypiModel.getInfo().getVersion());
+    System.out.println(pypiModel.getUrls().get(0).getUpload_time());
   }
 }
