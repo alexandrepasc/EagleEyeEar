@@ -38,7 +38,7 @@ public class PypiService {
 
     System.out.println(pypiModel.getInfo().getName());
     System.out.println(pypiModel.getInfo().getVersion());
-    System.out.println(pypiModel.getUrls().getUpload_time());
+    System.out.println(pypiModel.getUrls().get(0).getUpload_time());
   }
 
   private String apiGet(URI uri)
