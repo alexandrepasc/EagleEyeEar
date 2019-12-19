@@ -1,6 +1,11 @@
 package com.eagleeye.ear.services;
 
-import com.eagleeye.ear.models.MavenPackage;
+import com.eagleeye.ear.models.PypiModel;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -29,9 +34,11 @@ public class PypiService {
 
     String body = apiGet(uri);
 
-    //MavenPackage mavenPackage = JsonToObject(getContent(body));
+    PypiModel pypiModel = JsonToObject(body);
 
-    System.out.println(body);
+    System.out.println(pypiModel.getInfo().getName());
+    System.out.println(pypiModel.getInfo().getVersion());
+    System.out.println(pypiModel.getUrls().getUpload_time());
   }
 
   private String apiGet(URI uri)
@@ -51,5 +58,16 @@ public class PypiService {
     client.close();
 
     return body;
+  }
+
+  private PypiModel JsonToObject(String json)
+      throws JsonProcessingException {
+
+    ObjectMapper mapper = new ObjectMapper()
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+    PypiModel pypiModel = mapper.readValue(json, PypiModel.class);
+
+    return pypiModel;
   }
 }
