@@ -1,11 +1,14 @@
 package com.eagleeye.ear;
 
+import com.eagleeye.ear.common.Utils;
 import com.eagleeye.ear.impl.FeedersDaoImpl;
 import com.eagleeye.ear.impl.MavenDaoImpl;
 import com.eagleeye.ear.impl.PypiDaoImpl;
 import com.eagleeye.ear.models.Feeder;
 import com.eagleeye.ear.models.MavenModel;
 import com.eagleeye.ear.models.PypiModel;
+import com.eagleeye.ear.services.FeedersService;
+import com.eagleeye.ear.services.MavenService;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -66,5 +69,25 @@ public class EagleEyeEar {
     System.out.println(pypiModel.getInfo().getName());
     System.out.println(pypiModel.getInfo().getVersion());
     System.out.println(pypiModel.getUrls().get(0).getUpload_time());
+  }
+
+  Utils utils = new Utils();
+
+  private void huntMaven()
+      throws IOException, URISyntaxException {
+
+    FeedersService feedersService = new FeedersService();
+    MavenService mavenService = new MavenService();
+
+    List<Feeder> feeders = feedersService.getFeeders("maven");
+
+    for (Feeder feeder : feeders) {
+
+      MavenModel mavenModel = mavenService.getExternalData(feeder.getPackId());
+
+      if (utils.isUpdated(feeder.getPackReleaseDate(), mavenModel.getResponse().getDocs().get(0).getTimestamp())) {
+        
+      }
+    }
   }
 }
