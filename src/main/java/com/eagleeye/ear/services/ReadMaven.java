@@ -1,6 +1,6 @@
 package com.eagleeye.ear.services;
 
-import com.eagleeye.ear.models.MavenPackage;
+import com.eagleeye.ear.models.MavenModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.ResponseHandler;
@@ -33,9 +33,9 @@ public class ReadMaven {
 
     String body = apiGet(uri);
 
-    MavenPackage mavenPackage = JsonToObject(getContent(body));
+    MavenModel mavenModel = JsonToObject(getContent(body));
 
-    System.out.println(mavenPackage.getId());
+    System.out.println(mavenModel.getId());
   }
 
   private String apiGet(URI uri)
@@ -64,13 +64,13 @@ public class ReadMaven {
     return content;
   }
 
-  private MavenPackage JsonToObject(String json)
+  private MavenModel JsonToObject(String json)
     throws JsonProcessingException {
 
     ObjectMapper mapper = new ObjectMapper();
 
-    MavenPackage mavenPackage = mapper.readValue(json, MavenPackage.class);
+    MavenModel mavenModel = mapper.readValue(json, MavenModel.class);
 
-    return mavenPackage;
+    return mavenModel;
   }
 }

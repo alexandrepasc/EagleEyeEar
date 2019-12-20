@@ -2,7 +2,7 @@ package com.eagleeye.ear.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class MavenPackage {
+public class MavenModel {
 
   private String id;
   private String g;
