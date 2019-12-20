@@ -15,4 +15,16 @@ public class FeedersService {
 
     return feeders;
   }
+
+  public void updateFeeder(Feeder feeder, String version, long timeStamp) {
+
+    Feeder newFeeder = feeder;
+
+    newFeeder.setPackVersion(version);
+    newFeeder.setPackReleaseDate(timeStamp);
+
+    FeedersDaoImpl feedersDao = new FeedersDaoImpl();
+
+    feedersDao.updateFeeder(newFeeder);
+  }
 }

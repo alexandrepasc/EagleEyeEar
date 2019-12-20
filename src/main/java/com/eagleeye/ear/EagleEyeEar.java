@@ -69,15 +69,24 @@ public class EagleEyeEar {
     System.out.println(pypiModel.getInfo().getName());
     System.out.println(pypiModel.getInfo().getVersion());
     System.out.println(pypiModel.getUrls().get(0).getUpload_time());
+
+    try {
+      huntMaven();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
   }
 
-  Utils utils = new Utils();
+  //Utils utils = new Utils();
 
-  private void huntMaven()
-      throws IOException, URISyntaxException {
+  private static void huntMaven()
+    throws IOException, URISyntaxException {
 
     FeedersService feedersService = new FeedersService();
     MavenService mavenService = new MavenService();
+    Utils utils = new Utils();
 
     List<Feeder> feeders = feedersService.getFeeders("maven");
 
@@ -86,7 +95,12 @@ public class EagleEyeEar {
       MavenModel mavenModel = mavenService.getExternalData(feeder.getPackId());
 
       if (utils.isUpdated(feeder.getPackReleaseDate(), mavenModel.getResponse().getDocs().get(0).getTimestamp())) {
-        
+
+        feedersService.updateFeeder(
+            feeder,
+            mavenModel.getResponse().getDocs().get(0).getLatestVersion(),
+            mavenModel.getResponse().getDocs().get(0).getTimestamp()
+        );
       }
     }
   }

@@ -46,7 +46,7 @@ public class FeedersDaoImpl implements FeedersDao {
 
     Session session = openSession();
 
-    Query query = session.createNativeQuery("select * from feeders where repository = ?1;", Feeder.class);
+    Query query = session.createNativeQuery("select * from feeders where repository = ?1", Feeder.class);
     query.setParameter(1, repository);
 
     List<Feeder> feeders = query.getResultList();
