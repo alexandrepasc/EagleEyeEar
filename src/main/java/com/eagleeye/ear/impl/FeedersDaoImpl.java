@@ -28,7 +28,8 @@ public class FeedersDaoImpl implements FeedersDao {
     return feeder;
   }
 
-  @Override public List<Feeder> getFeeders() {
+  @Override
+  public List<Feeder> getFeeders() {
 
     Session session = openSession();
 
@@ -38,6 +39,33 @@ public class FeedersDaoImpl implements FeedersDao {
     closeSession(session);
 
     return feeders;
+  }
+
+  @Override
+  public List<Feeder> getFeedersByRepo(String repository) {
+
+    Session session = openSession();
+
+    Query query = session.createNativeQuery("select * from feeders where repository = ?1", Feeder.class);
+    query.setParameter(1, repository);
+
+    List<Feeder> feeders = query.getResultList();
+
+    closeSession(session);
+
+    return feeders;
+  }
+
+  @Override
+  public void updateFeeder(Feeder feeder) {
+
+    Session session = openSession();
+
+    session.saveOrUpdate(feeder);
+
+    session.getTransaction().commit();
+
+    closeSession(session);
   }
 
   public Session openSession() {

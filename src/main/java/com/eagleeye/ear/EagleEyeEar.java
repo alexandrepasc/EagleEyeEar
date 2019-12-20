@@ -1,11 +1,14 @@
 package com.eagleeye.ear;
 
+import com.eagleeye.ear.common.Utils;
 import com.eagleeye.ear.impl.FeedersDaoImpl;
+import com.eagleeye.ear.impl.MavenDaoImpl;
 import com.eagleeye.ear.impl.PypiDaoImpl;
 import com.eagleeye.ear.models.Feeder;
+import com.eagleeye.ear.models.MavenModel;
 import com.eagleeye.ear.models.PypiModel;
-import com.eagleeye.ear.services.PypiService;
-import com.eagleeye.ear.services.ReadMaven;
+import com.eagleeye.ear.services.FeedersService;
+import com.eagleeye.ear.services.MavenService;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,15 +22,20 @@ public class EagleEyeEar {
     /*--------
     MAVEN API
      --------*/
-    ReadMaven readMaven = new ReadMaven();
+    MavenDaoImpl mavenDao = new MavenDaoImpl();
+    MavenModel mavenModel = new MavenModel();
 
     try {
-      readMaven.getPackage("org.springframework.boot:spring-boot-starter-security");
+      mavenModel = mavenDao.getMavenPackById("org.springframework.boot:spring-boot-starter-security");
     } catch (IOException e) {
       e.printStackTrace();
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }
+
+    System.out.println(mavenModel.getResponse().getDocs().get(0).getId());
+    System.out.println(mavenModel.getResponse().getDocs().get(0).getLatestVersion());
+    System.out.println(mavenModel.getResponse().getDocs().get(0).getTimestamp());
 
     /*--------
     HIBERNATE API
@@ -61,5 +69,39 @@ public class EagleEyeEar {
     System.out.println(pypiModel.getInfo().getName());
     System.out.println(pypiModel.getInfo().getVersion());
     System.out.println(pypiModel.getUrls().get(0).getUpload_time());
+
+    try {
+      huntMaven();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+
+  //Utils utils = new Utils();
+
+  private static void huntMaven()
+    throws IOException, URISyntaxException {
+
+    FeedersService feedersService = new FeedersService();
+    MavenService mavenService = new MavenService();
+    Utils utils = new Utils();
+
+    List<Feeder> feeders = feedersService.getFeeders("maven");
+
+    for (Feeder feeder : feeders) {
+
+      MavenModel mavenModel = mavenService.getExternalData(feeder.getPackId());
+
+      if (utils.isUpdated(feeder.getPackReleaseDate(), mavenModel.getResponse().getDocs().get(0).getTimestamp())) {
+
+        feedersService.updateFeeder(
+            feeder,
+            mavenModel.getResponse().getDocs().get(0).getLatestVersion(),
+            mavenModel.getResponse().getDocs().get(0).getTimestamp()
+        );
+      }
+    }
   }
 }
