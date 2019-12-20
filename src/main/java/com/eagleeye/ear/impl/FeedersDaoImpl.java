@@ -56,6 +56,18 @@ public class FeedersDaoImpl implements FeedersDao {
     return feeders;
   }
 
+  @Override
+  public void updateFeeder(Feeder feeder) {
+
+    Session session = openSession();
+
+    session.saveOrUpdate(feeder);
+
+    session.getTransaction().commit();
+
+    closeSession(session);
+  }
+
   public Session openSession() {
 
     sessionFactory = new Configuration().configure().buildSessionFactory();

@@ -12,4 +12,6 @@ public interface FeedersDao {
   List<Feeder> getFeeders();
 
   List<Feeder> getFeedersByRepo(String repository);
+
+  void updateFeeder(Feeder feeder);
 }
