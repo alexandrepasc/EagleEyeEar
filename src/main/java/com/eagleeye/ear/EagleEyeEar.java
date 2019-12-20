@@ -1,11 +1,11 @@
 package com.eagleeye.ear;
 
 import com.eagleeye.ear.impl.FeedersDaoImpl;
+import com.eagleeye.ear.impl.MavenDaoImpl;
 import com.eagleeye.ear.impl.PypiDaoImpl;
 import com.eagleeye.ear.models.Feeder;
+import com.eagleeye.ear.models.MavenModel;
 import com.eagleeye.ear.models.PypiModel;
-import com.eagleeye.ear.services.PypiService;
-import com.eagleeye.ear.services.ReadMaven;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,15 +19,20 @@ public class EagleEyeEar {
     /*--------
     MAVEN API
      --------*/
-    ReadMaven readMaven = new ReadMaven();
+    MavenDaoImpl mavenDao = new MavenDaoImpl();
+    MavenModel mavenModel = new MavenModel();
 
     try {
-      readMaven.getPackage("org.springframework.boot:spring-boot-starter-security");
+      mavenModel = mavenDao.getMavenPackById("org.springframework.boot:spring-boot-starter-security");
     } catch (IOException e) {
       e.printStackTrace();
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }
+
+    System.out.println(mavenModel.getResponse().getDocs().get(0).getId());
+    System.out.println(mavenModel.getResponse().getDocs().get(0).getLatestVersion());
+    System.out.println(mavenModel.getResponse().getDocs().get(0).getTimestamp());
 
     /*--------
     HIBERNATE API
