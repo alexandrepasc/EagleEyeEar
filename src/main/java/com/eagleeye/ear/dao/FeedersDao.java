@@ -10,4 +10,6 @@ public interface FeedersDao {
   Feeder getFeederById(UUID id);
 
   List<Feeder> getFeeders();
+
+  List<Feeder> getFeedersByRepo(String repository);
 }
