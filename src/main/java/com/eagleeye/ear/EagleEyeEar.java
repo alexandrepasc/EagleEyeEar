@@ -1,5 +1,6 @@
 package com.eagleeye.ear;
 
+import com.eagleeye.ear.common.Repository;
 import com.eagleeye.ear.common.Utils;
 import com.eagleeye.ear.impl.FeedersDaoImpl;
 import com.eagleeye.ear.impl.MavenDaoImpl;
@@ -9,6 +10,7 @@ import com.eagleeye.ear.models.MavenModel;
 import com.eagleeye.ear.models.PypiModel;
 import com.eagleeye.ear.services.FeedersService;
 import com.eagleeye.ear.services.MavenService;
+import com.eagleeye.ear.services.PypiService;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -79,8 +81,6 @@ public class EagleEyeEar {
     }
   }
 
-  //Utils utils = new Utils();
-
   private static void huntMaven()
     throws IOException, URISyntaxException {
 
@@ -88,7 +88,7 @@ public class EagleEyeEar {
     MavenService mavenService = new MavenService();
     Utils utils = new Utils();
 
-    List<Feeder> feeders = feedersService.getFeeders("maven");
+    List<Feeder> feeders = feedersService.getFeeders(Repository.MAVEN.getName());
 
     for (Feeder feeder : feeders) {
 
@@ -103,5 +103,15 @@ public class EagleEyeEar {
         );
       }
     }
+  }
+
+  private static void huntPypi()
+    throws IOException, URISyntaxException {
+
+    FeedersService feedersService = new FeedersService();
+    PypiService pypiService = new PypiService();
+    Utils utils = new Utils();
+
+    List<Feeder> feeders = feedersService.getFeeders(Repository.PYPI.getName());
   }
 }
