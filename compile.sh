@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it eagleeyeear /home/EagleEyeEar/docker/maven.sh
+docker exec -it dev-eagleeyeear /home/EagleEyeEar/devDocker/maven.sh
