@@ -12,7 +12,7 @@ public class MavenService {
     throws IOException, URISyntaxException {
 
     MavenDaoImpl mavenDao = new MavenDaoImpl();
-    MavenModel mavenModel = new MavenModel();
+    MavenModel mavenModel;
 
     mavenModel = mavenDao.getMavenPackById(searchField);
 

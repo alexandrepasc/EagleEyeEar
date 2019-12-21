@@ -15,7 +15,7 @@ public class PypiService {
     throws IOException, URISyntaxException {
 
     PypiDaoImpl pypiDao = new PypiDaoImpl();
-    PypiModel pypiModel = new PypiModel();
+    PypiModel pypiModel;
 
     pypiModel = pypiDao.getPypiPackByName(searchField);
 
