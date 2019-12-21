@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker rm -f dev-eagleeyeear
+./devDocker/delete_container.sh
 
-docker rmi -f dev-eagleeyeear-img
+./devDocker/delete_image.sh
