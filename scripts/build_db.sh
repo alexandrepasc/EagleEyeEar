@@ -17,3 +17,7 @@ psql -h 172.17.0.2 -p 5432 -U postgres -w -d eagleeye_db -f create_user_feeder_t
 psql -h 172.17.0.2 -p 5432 -U postgres -w -d eagleeye_db -f insert_maven_data.sql
 
 psql -h 172.17.0.2 -p 5432 -U postgres -w -d eagleeye_db -f insert_pypi_data.sql
+
+psql -h 172.17.0.2 -p 5432 -U postgres -w -d eagleeye_db -f insert_user_data.sql
+
+psql -h 172.17.0.2 -p 5432 -U postgres -w -d eagleeye_db -f insert_user_role_data.sql
