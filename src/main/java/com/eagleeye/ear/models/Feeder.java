@@ -17,9 +17,6 @@ public class Feeder {
   //@Type(type="java.util.UUID")
   @Column(name = "id")
   private UUID id;
-  //@Type(type="java.util.UUID")
-  @Column(name = "user_id")
-  private UUID userId;
   @Column(name = "pack_name")
   private String packName;
   @Column(name = "pack_id")
@@ -41,14 +38,6 @@ public class Feeder {
 
   public void setId(UUID id) {
     this.id = id;
-  }
-
-  public UUID getUserId() {
-    return userId;
-  }
-
-  public void setUserId(UUID userId) {
-    this.userId = userId;
   }
 
   public String getPackName() {
