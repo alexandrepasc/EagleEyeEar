@@ -8,9 +8,6 @@
             <column name="id" />
             <generator class="assigned" />
         </id>
-        <property name="userId" type="java.util.UUID">
-            <column name="user_id" />
-        </property>
         <property name="packName" type="java.lang.String">
             <column name="pack_name" />
         </property>
