@@ -8,11 +8,14 @@ import com.eagleeye.ear.models.PypiModel;
 import com.eagleeye.ear.services.FeedersService;
 import com.eagleeye.ear.services.MavenService;
 import com.eagleeye.ear.services.PypiService;
+import com.eagleeye.ear.services.WingService;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class EagleEyeEar {
 
@@ -46,6 +49,8 @@ public class EagleEyeEar {
 
     List<Feeder> feeders = feedersService.getFeeders(Repository.MAVEN.getName());
 
+    List<UUID> updatedFeeders = new ArrayList<>();
+
     for (Feeder feeder : feeders) {
 
       MavenModel mavenModel = mavenService.getExternalData(feeder.getPackId());
@@ -57,8 +62,13 @@ public class EagleEyeEar {
             mavenModel.getResponse().getDocs().get(0).getLatestVersion(),
             mavenModel.getResponse().getDocs().get(0).getTimestamp()
         );
+
+        updatedFeeders.add(feeder.getId());
       }
     }
+
+    WingService wingService = new WingService();
+    String response = wingService.sendActivation(updatedFeeders);
   }
 
   private static void huntPypi()
@@ -69,6 +79,8 @@ public class EagleEyeEar {
     Utils utils = new Utils();
 
     List<Feeder> feeders = feedersService.getFeeders(Repository.PYPI.getName());
+
+    List<UUID> updatedFeeders = new ArrayList<>();
 
     for (Feeder feeder : feeders) {
 
@@ -81,7 +93,12 @@ public class EagleEyeEar {
             pypiModel.getInfo().getVersion(),
             pypiService.convertDateToMillis(pypiModel.getUrls().get(1).getUpload_time())
         );
+
+        updatedFeeders.add(feeder.getId());
       }
     }
+
+    WingService wingService = new WingService();
+    String response = wingService.sendActivation(updatedFeeders);
   }
 }
