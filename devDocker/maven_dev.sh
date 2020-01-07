@@ -1,5 +1,5 @@
 #!/bin/bash
 
-mvn clean install
+mvn -Pdev clean install
 
 chmod -R 777 target
