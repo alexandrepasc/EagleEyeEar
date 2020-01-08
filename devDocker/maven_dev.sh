@@ -2,6 +2,6 @@
 
 cp devDocker/hibernate.dev src/main/resources/hibernate.properties
 
-mvn -Pdev clean install
+mvn clean install
 
 chmod -R 777 target
