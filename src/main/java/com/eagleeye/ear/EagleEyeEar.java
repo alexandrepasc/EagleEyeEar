@@ -8,6 +8,7 @@ import com.eagleeye.ear.models.PypiModel;
 import com.eagleeye.ear.services.FeedersService;
 import com.eagleeye.ear.services.MavenService;
 import com.eagleeye.ear.services.PypiService;
+import com.eagleeye.ear.services.WingAuthService;
 import com.eagleeye.ear.services.WingService;
 
 import java.io.IOException;
@@ -21,26 +22,39 @@ public class EagleEyeEar {
 
   public static void main(String[] args) {
 
+    String token = null;
     try {
-      huntMaven();
+      token = getToken();
     } catch (IOException e) {
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
       e.printStackTrace();
     }
 
-    try {
-      huntPypi();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    } catch (ParseException e) {
-      e.printStackTrace();
+    if (token != null) {
+
+      try {
+        huntMaven(token);
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (URISyntaxException e) {
+        e.printStackTrace();
+      }
+
+      try {
+        huntPypi(token);
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (URISyntaxException e) {
+        e.printStackTrace();
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
+
+    } else {
+      System.out.println("ERROR: No auth token.");
     }
   }
 
-  private static void huntMaven()
+  private static void huntMaven(String token)
     throws IOException, URISyntaxException {
 
     FeedersService feedersService = new FeedersService();
@@ -68,10 +82,10 @@ public class EagleEyeEar {
     }
 
     WingService wingService = new WingService();
-    String response = wingService.sendActivation(updatedFeeders);
+    String response = wingService.sendActivation(updatedFeeders, token);
   }
 
-  private static void huntPypi()
+  private static void huntPypi(String token)
     throws IOException, URISyntaxException, ParseException {
 
     FeedersService feedersService = new FeedersService();
@@ -99,6 +113,14 @@ public class EagleEyeEar {
     }
 
     WingService wingService = new WingService();
-    String response = wingService.sendActivation(updatedFeeders);
+    String response = wingService.sendActivation(updatedFeeders, token);
+  }
+
+  private static String getToken()
+    throws IOException {
+
+    WingAuthService authService = new WingAuthService();
+
+    return authService.getAuthToken();
   }
 }

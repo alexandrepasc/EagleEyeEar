@@ -16,27 +16,28 @@ import java.util.UUID;
 
 public class WingService {
 
-  public String sendActivation(List<UUID> ids)
+  public String sendActivation(List<UUID> ids, String token)
     throws IOException {
 
     Configuration config = new Configuration();
 
-    Map<String, String> header = getHeader();
+    Map<String, String> header = getHeader(token);
 
     StringEntity body = getBody(ids);
 
     ApiUtils apiUtils = new ApiUtils();
 
-    String response = apiUtils.apiPost(config.getWingUrl(), header, body);
+    String response = apiUtils.apiPost(config.getWingUrl() + "activate", header, body);
 
     return response;
   }
 
-  private Map<String, String> getHeader() {
+  private Map<String, String> getHeader(String token) {
 
     Map<String, String> header = new HashMap<>();
 
     header.put("Content-Type", "application/json");
+    header.put("Authorization", "Bearer " + token);
 
     return header;
   }
