@@ -17,7 +17,7 @@ import java.util.Map;
 public class WingAuthService {
 
   public String getAuthToken()
-      throws IOException {
+    throws IOException {
 
     Configuration config = new Configuration();
 
