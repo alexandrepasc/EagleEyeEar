@@ -7,6 +7,6 @@ import java.net.URISyntaxException;
 
 public interface PubdevDao {
 
-  PubdevModel getPubdevPackByName(String id)
+  PubdevModel getPubdevPackByName(String name)
       throws URISyntaxException, IOException;
 }
