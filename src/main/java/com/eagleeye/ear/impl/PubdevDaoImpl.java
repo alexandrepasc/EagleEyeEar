@@ -3,11 +3,12 @@ package com.eagleeye.ear.impl;
 import com.eagleeye.ear.common.ApiUtils;
 import com.eagleeye.ear.common.Configuration;
 import com.eagleeye.ear.dao.PubdevDao;
-import com.eagleeye.ear.models.MavenModel;
 import com.eagleeye.ear.models.PubdevModel;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
