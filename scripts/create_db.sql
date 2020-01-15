@@ -1,1 +1,0 @@
-create database eagleeye_db;
