@@ -4,9 +4,11 @@ import com.eagleeye.ear.common.Repository;
 import com.eagleeye.ear.common.Utils;
 import com.eagleeye.ear.models.Feeder;
 import com.eagleeye.ear.models.MavenModel;
+import com.eagleeye.ear.models.PubdevModel;
 import com.eagleeye.ear.models.PypiModel;
 import com.eagleeye.ear.services.FeedersService;
 import com.eagleeye.ear.services.MavenService;
+import com.eagleeye.ear.services.PubdevService;
 import com.eagleeye.ear.services.PypiService;
 import com.eagleeye.ear.services.WingAuthService;
 import com.eagleeye.ear.services.WingService;
@@ -46,6 +48,14 @@ public class EagleEyeEar {
       } catch (URISyntaxException e) {
         e.printStackTrace();
       } catch (ParseException e) {
+        e.printStackTrace();
+      }
+
+      try {
+        huntPubdev(token);
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (URISyntaxException e) {
         e.printStackTrace();
       }
 
@@ -114,6 +124,38 @@ public class EagleEyeEar {
 
     WingService wingService = new WingService();
     String response = wingService.sendActivation(updatedFeeders, token);
+  }
+
+  private static void huntPubdev(String token)
+    throws IOException, URISyntaxException {
+
+    FeedersService feedersService = new FeedersService();
+    PubdevService pubdevService = new PubdevService();
+    Utils utils = new Utils();
+
+    List<Feeder> feeders = feedersService.getFeeders(Repository.PUBDEV.getName());
+
+    List<UUID> updatedFeeders = new ArrayList<>();
+
+    for (Feeder feeder : feeders) {
+
+      PubdevModel pubdevModel = pubdevService.getExternalData(feeder.getPackName());
+
+      if (utils.isUpdated(feeder.getPackVersion(), pubdevModel.getLatest().getVersion())) {
+
+        feedersService.updateFeeder(
+            feeder,
+            pubdevModel.getLatest().getVersion()
+        );
+
+        updatedFeeders.add(feeder.getId());
+      }
+    }
+
+    if (updatedFeeders.size() > 0) {
+      WingService wingService = new WingService();
+      String response = wingService.sendActivation(updatedFeeders, token);
+    }
   }
 
   private static String getToken()
