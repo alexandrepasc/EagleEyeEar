@@ -27,4 +27,15 @@ public class FeedersService {
 
     feedersDao.updateFeeder(newFeeder);
   }
+
+  public void updateFeeder(Feeder feeder, String version) {
+
+    Feeder newFeeder = feeder;
+
+    newFeeder.setPackVersion(version);
+
+    FeedersDaoImpl feedersDao = new FeedersDaoImpl();
+
+    feedersDao.updateFeeder(newFeeder);
+  }
 }

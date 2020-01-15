@@ -27,6 +27,8 @@ public class WingService {
 
     ApiUtils apiUtils = new ApiUtils();
 
+    System.out.println("Send request.");
+
     String response = apiUtils.apiPost(config.getWingUrl() + "activate", header, body);
 
     return response;
