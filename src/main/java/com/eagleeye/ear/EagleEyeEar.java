@@ -101,8 +101,7 @@ public class EagleEyeEar {
       }
     }
 
-    WingService wingService = new WingService();
-    String response = wingService.sendActivation(updatedFeeders, token);
+    sendActivation(updatedFeeders, token);
   }
 
   private static void huntPypi(String token)
@@ -132,8 +131,7 @@ public class EagleEyeEar {
       }
     }
 
-    WingService wingService = new WingService();
-    String response = wingService.sendActivation(updatedFeeders, token);
+    sendActivation(updatedFeeders, token);
   }
 
   private static void huntPubdev(String token)
@@ -162,10 +160,7 @@ public class EagleEyeEar {
       }
     }
 
-    if (updatedFeeders.size() > 0) {
-      WingService wingService = new WingService();
-      String response = wingService.sendActivation(updatedFeeders, token);
-    }
+    sendActivation(updatedFeeders, token);
   }
 
   private static void huntNpm(String token)
@@ -194,10 +189,7 @@ public class EagleEyeEar {
       }
     }
 
-    if (updatedFeeders.size() > 0) {
-      WingService wingService = new WingService();
-      String response = wingService.sendActivation(updatedFeeders, token);
-    }
+    sendActivation(updatedFeeders, token);
   }
 
   private static String getToken()
@@ -206,5 +198,18 @@ public class EagleEyeEar {
     WingAuthService authService = new WingAuthService();
 
     return authService.getAuthToken();
+  }
+
+  private static String sendActivation(List<UUID> updatedFeeders, String token)
+    throws IOException {
+
+    if (updatedFeeders.size() > 0) {
+      WingService wingService = new WingService();
+      String response = wingService.sendActivation(updatedFeeders, token);
+
+      return response;
+    }
+
+    return null;
   }
 }
