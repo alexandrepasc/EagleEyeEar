@@ -4,10 +4,12 @@ import com.eagleeye.ear.common.Repository;
 import com.eagleeye.ear.common.Utils;
 import com.eagleeye.ear.models.Feeder;
 import com.eagleeye.ear.models.MavenModel;
+import com.eagleeye.ear.models.NpmModel;
 import com.eagleeye.ear.models.PubdevModel;
 import com.eagleeye.ear.models.PypiModel;
 import com.eagleeye.ear.services.FeedersService;
 import com.eagleeye.ear.services.MavenService;
+import com.eagleeye.ear.services.NpmService;
 import com.eagleeye.ear.services.PubdevService;
 import com.eagleeye.ear.services.PypiService;
 import com.eagleeye.ear.services.WingAuthService;
@@ -53,6 +55,14 @@ public class EagleEyeEar {
 
       try {
         huntPubdev(token);
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (URISyntaxException e) {
+        e.printStackTrace();
+      }
+
+      try {
+        huntNpm(token);
       } catch (IOException e) {
         e.printStackTrace();
       } catch (URISyntaxException e) {
@@ -146,6 +156,38 @@ public class EagleEyeEar {
         feedersService.updateFeeder(
             feeder,
             pubdevModel.getLatest().getVersion()
+        );
+
+        updatedFeeders.add(feeder.getId());
+      }
+    }
+
+    if (updatedFeeders.size() > 0) {
+      WingService wingService = new WingService();
+      String response = wingService.sendActivation(updatedFeeders, token);
+    }
+  }
+
+  private static void huntNpm(String token)
+    throws IOException, URISyntaxException {
+
+    FeedersService feedersService = new FeedersService();
+    NpmService npmService = new NpmService();
+    Utils utils = new Utils();
+
+    List<Feeder> feeders = feedersService.getFeeders(Repository.NPM.getName());
+
+    List<UUID> updatedFeeders = new ArrayList<>();
+
+    for (Feeder feeder : feeders) {
+
+      NpmModel npmModel = npmService.getExternalData(feeder.getPackName());
+
+      if (utils.isUpdated(feeder.getPackVersion(), npmModel.getDistTags().getLatest())) {
+
+        feedersService.updateFeeder(
+            feeder,
+            npmModel.getDistTags().getLatest()
         );
 
         updatedFeeders.add(feeder.getId());
