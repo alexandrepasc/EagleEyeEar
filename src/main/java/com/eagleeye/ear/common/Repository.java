@@ -3,7 +3,8 @@ package com.eagleeye.ear.common;
 public enum Repository {
   MAVEN("maven"),
   PYPI("pypi"),
-  PUBDEV("pubdev");
+  PUBDEV("pubdev"),
+  NPM("npm");
 
   private String name;
 

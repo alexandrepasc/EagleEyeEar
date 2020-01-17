@@ -104,4 +104,24 @@ public class Configuration {
       return null;
     }
   }
+
+  public String getNpmHost() {
+
+    try (InputStream input = Configuration.class.getClassLoader().getResourceAsStream("config.properties")) {
+
+      Properties properties = new Properties();
+
+      if (input == null) {
+        return null;
+      }
+
+      properties.load(input);
+
+      return properties.getProperty("npm.host");
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
 }
