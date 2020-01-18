@@ -1,3 +1,11 @@
+#WING
 wing.url=https://be-eagleeye.herokuapp.com/
 wing.username=ear
 wing.password=3agle3ye3ar
+
+#PUBDEV
+pubdev.host=pub.dev
+pubdev.path=/api/packages
+
+#NPM
+npm.host=registry.npmjs.org
