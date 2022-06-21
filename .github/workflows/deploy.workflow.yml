@@ -3,7 +3,7 @@ name: Deploy
 on:
   workflow_dispatch:
     inputs:
-      git-ref:
+      input:
         description: Git Ref (Optional)
         required: false
 
