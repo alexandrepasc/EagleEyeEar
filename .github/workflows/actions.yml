@@ -20,10 +20,12 @@ jobs:
       - name: Run maven
         run: mvn clean install
 
-      - name: Create artifact
+      - name: Clean jar files
         run: |
           rm -f target/EagleEyeEar-${{ env.RELEASE_VERSION }}.jar
           cp target/EagleEyeEar-${{ env.RELEASE_VERSION }}-jar-with-dependencies.jar target/EagleEyeEar-${{ env.RELEASE_VERSION }}.jar
+
+      - name: Create artifact
         uses: actions/upload-artifact@v3
         with:
           name: EagleEyeEar-${{ env.RELEASE_VERSION }}
