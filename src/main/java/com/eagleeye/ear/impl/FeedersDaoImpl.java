@@ -3,11 +3,11 @@ package com.eagleeye.ear.impl;
 import com.eagleeye.ear.dao.FeedersDao;
 import com.eagleeye.ear.models.Feeder;
 
+import jakarta.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import javax.persistence.Query;
 
 import java.util.List;
 import java.util.UUID;
@@ -61,7 +61,7 @@ public class FeedersDaoImpl implements FeedersDao {
 
     Session session = openSession();
 
-    session.saveOrUpdate(feeder);
+    session.merge(feeder);
 
     session.getTransaction().commit();
 
