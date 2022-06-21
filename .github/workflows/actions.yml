@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Copy config files
+        run: |
+          cp devDocker/hibernate.heroku src/main/resources/hibernate.properties
+          cp devDocker/config.heroku src/main/resources/config.properties
+
+      - name: Get version
+        run: echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      - name: Run maven
+        run: mvn clean install
+
+      - uses: actions/upload-artifact@v3
+
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          name: EagleEyeEar-${{ env.RELEASE_VERSION }}
+          path: target/EagleEyeEar-${{ env.RELEASE_VERSION }}-jar-with-dependencies.jar
