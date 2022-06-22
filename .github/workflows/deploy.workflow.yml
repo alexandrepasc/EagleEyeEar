@@ -3,7 +3,7 @@ name: Deploy
 on: [workflow_dispatch]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-20.04
     steps:
 
