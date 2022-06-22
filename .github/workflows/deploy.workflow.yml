@@ -24,6 +24,9 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
           regex: true
 
+      - name: list files
+        run: ls
+
       - name: Create container
         run: docker build -f deploy/Dockerfile -t registry.heroku.com/be-eagleeye/web .
 
