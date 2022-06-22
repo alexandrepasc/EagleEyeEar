@@ -13,3 +13,4 @@ jobs:
           repo: 'alexandrepasc/EagleEyeEar'
           file: 'EagleEyeEar-*.jar'
           token: ${{ secrets.GITHUB_TOKEN }}
+          regex: true
