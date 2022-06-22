@@ -19,6 +19,3 @@ jobs:
           repo: 'alexandrepasc/EagleEyeWing'
           file: 'EagleEyeWing-*.jar'
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: test
-        run: ls
