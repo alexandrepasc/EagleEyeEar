@@ -11,6 +11,13 @@ jobs:
         uses: dsaltares/fetch-gh-release-asset@master
         with:
           repo: 'alexandrepasc/EagleEyeEar'
-          file: 'EagleEyeEar-v0.9.2.jar'
+          file: '\bEagleEyeEar\b-v[0-9]\.[0-9]\.[0-9]\.jar'
           token: ${{ secrets.GITHUB_TOKEN }}
           regex: true
+
+#      - name: Get Wing release artifact
+#        uses: dsaltares/fetch-gh-release-asset@master
+#        with:
+#          repo: 'alexandrepasc/EagleEyeWing'
+#          file: 'EagleEyeWing-*.jar'
+#          token: ${{ secrets.GITHUB_TOKEN }}
