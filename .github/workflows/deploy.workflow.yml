@@ -22,3 +22,17 @@ jobs:
           file: '\bEagleEyeWing\b-v[0-9]\.[0-9]\.?[0-9]?\.jar'
           token: ${{ secrets.ACCESS_TOKEN }}
           regex: true
+
+      - name: Create container
+        run: docker build -f deploy/Dockerfile -t registry.heroku.com/be-eagleeye/web .
+
+      - name: Heroku authentication
+        run: |
+            cp deploy/.netrc ~/.netrc
+            heroku container:login
+
+      - name: Push image
+        run: docker push registry.heroku.com/be-eagleeye/web
+
+      - name: Release
+        run: heroku container:release -a be-eagleeye web
