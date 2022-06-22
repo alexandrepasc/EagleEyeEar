@@ -6,15 +6,16 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - uses: dsaltares/fetch-gh-release-asset@master
 
       - name: Get Ear release artifact
+        uses: dsaltares/fetch-gh-release-asset@master
         with:
           repo: 'alexandrepasc/EagleEyeEar'
           file: 'EagleEyeEar-*.jar'
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get Wing release artifact
+        uses: dsaltares/fetch-gh-release-asset@master
         with:
           repo: 'alexandrepasc/EagleEyeWing'
           file: 'EagleEyeWing-*.jar'
