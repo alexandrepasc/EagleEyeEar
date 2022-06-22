@@ -13,6 +13,7 @@ jobs:
         with:
           repo: 'alexandrepasc/EagleEyeEar'
           file: '\bEagleEyeEar\b-v[0-9]\.[0-9]\.[0-9]\.jar'
+          target: 'EagleEyeEar.jar'
           token: ${{ secrets.GITHUB_TOKEN }}
           regex: true
 
@@ -21,6 +22,7 @@ jobs:
         with:
           repo: 'alexandrepasc/EagleEyeWing'
           file: '\bEagleEyeWing\b-v[0-9]\.[0-9]\.?[0-9]?\.jar'
+          target: 'EagleEyeWing.jar'
           token: ${{ secrets.ACCESS_TOKEN }}
           regex: true
 
