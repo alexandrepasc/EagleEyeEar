@@ -3,7 +3,7 @@ name: Deploy
 on: [workflow_dispatch]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-20.04
     steps:
 
@@ -24,6 +24,7 @@ jobs:
           regex: true
 
       - name: Create container
+        uses: actions/checkout@v3
         run: docker build -f deploy/Dockerfile -t registry.heroku.com/be-eagleeye/web .
 
       - name: Heroku authentication
