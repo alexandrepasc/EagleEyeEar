@@ -6,7 +6,7 @@
 
     <groupId>com.eagleeye.ear</groupId>
     <artifactId>EagleEyeEar</artifactId>
-    <version>v0.9.2</version>
+    <version>v0.9.3</version>
     <packaging>jar</packaging>
 
     <properties>
