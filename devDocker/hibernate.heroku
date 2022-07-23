@@ -1,6 +1,6 @@
 hibernate.dialect=org.hibernate.dialect.PostgreSQL92Dialect
 hibernate.connection.driver_class=org.postgresql.Driver
 
-hibernate.connection.url=jdbc:postgresql://ec2-54-246-84-100.eu-west-1.compute.amazonaws.com:5432/d344qvedh8tei4
-hibernate.connection.username=hfynuunncocbpl
-hibernate.connection.password=a39b11109acb19d4c76cd3881dc6e0e6a388334e374180899c8bb86e4e1d7599
+hibernate.connection.url=jdbc:postgresql://ec2-52-30-248-188.eu-west-1.compute.amazonaws.com:5432/d9puh13vis11a1
+hibernate.connection.username=oskwjeclmoepeq
+hibernate.connection.password=f4777e855f4ab34378fbb999ea15a543e82bb62ac8b465c6a0533cd2bfc4d6d8
