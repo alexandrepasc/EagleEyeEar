@@ -80,6 +80,10 @@ public class FeedersDaoImpl implements FeedersDao {
 
   public void closeSession(Session session) {
 
+    session.clear();
+
+    session.close();
+
     session.getSessionFactory().close();
   }
 }
